@@ -28,7 +28,7 @@ export default function useProducts() {
                 statusText: err.response?.statusText,
                 data: err.response?.data
             });
-            setError(err.response?.data?.message || err.message || 'Failed to fetch products');
+            setError(err.response?.data?.message || err.message || 'Failed to fetch product');
             setProducts([]); // Reset to empty array on error
         } finally {
             setLoading(false);

@@ -4,6 +4,7 @@ import HeroSection from "../components/HeroSection";
 import Footer from "../components/Footer";
 import Card from "../components/Card";
 import useProducts from "../hooks/useProducts";
+import Categories from "../components/Categories";
 
 export default function Home() {
   const { products, loading, error } = useProducts();
@@ -47,6 +48,7 @@ export default function Home() {
       {/* {error && <ErrorMessage />} */}
       {!loading && !error && <ProductsSection />}
       
+      <Categories />
     </div>
   );
 }
