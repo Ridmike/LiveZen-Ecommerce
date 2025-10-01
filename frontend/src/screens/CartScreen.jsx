@@ -14,9 +14,6 @@ export default function CartScreen() {
     getCartCount,
   } = useCart();
 
-  console.log("CartScreen - cart items:", cart);
-  console.log("CartScreen - cart length:", cart.length);
-
   const handleQuantityChange = (productId, newQuantity) => {
     if (newQuantity < 1) return;
     updateQuantity(productId, newQuantity);

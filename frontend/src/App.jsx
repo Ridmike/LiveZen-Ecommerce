@@ -9,6 +9,7 @@ import { SearchProvider } from "./contexts/SearchContext";
 import { CartProvider } from "./contexts/CartContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ContactUs from "./screens/ContactUs";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
               <Route path="/product/:id" element={<ProductDetails />} />
               <Route path="/search" element={<SearchResults />} />
               <Route path="/cart" element={<CartScreen />} />
+              <Route path="/contact-us" element={<ContactUs />} />
             </Routes>
           </div>
           <Footer />

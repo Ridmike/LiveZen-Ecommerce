@@ -156,7 +156,7 @@ export default function Header() {
               About
             </a>
             <a
-              href="#"
+              href="/contact-us"
               className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
