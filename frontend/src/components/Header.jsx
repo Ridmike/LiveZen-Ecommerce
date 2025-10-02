@@ -152,13 +152,6 @@ import useCategory from "../hooks/useCategory";
               <DropDown categories={categories} />
             </a>
             <a
-              href="#"
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              About
-            </a>
-            <a
               href="/contact-us"
               className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

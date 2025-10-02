@@ -11,6 +11,7 @@ export const useCartContext = () => {
 };
 
 export const CartProvider = ({ children }) => {
+  const formatPrice = (price) => `$${price.toFixed(2)}`;
   const [cart, setCart] = useState(() => {
     const stored = localStorage.getItem("cart");
     return stored ? JSON.parse(stored) : [];
@@ -67,6 +68,10 @@ export const CartProvider = ({ children }) => {
     }, 0);
   };
 
+  const getCartTotalWithTax = () => {
+    return formatPrice(getCartTotal() * 1.1);
+  };
+
   const getCartCount = () => {
     return cart.reduce((count, item) => count + item.quantity, 0);
   };
@@ -82,6 +87,7 @@ export const CartProvider = ({ children }) => {
     setCart,
     showNotification,
     setShowNotification,
+    getCartTotalWithTax 
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

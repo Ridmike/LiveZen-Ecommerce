@@ -107,7 +107,7 @@ export default function SearchResults() {
             Home
           </Link>
           <span className="mx-2">/</span>
-          <span className="text-gray-900">Search Results</span>
+          <span className="text-gray-900">Search Results : {query}</span>
         </nav>
 
         {/* Search Results */}
