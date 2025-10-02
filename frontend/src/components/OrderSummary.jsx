@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../hooks/addToCart";
 
 export default function OrderSummary() {
   const { getCartCount, getCartTotal, getCartTotalWithTax  } = useCart();
+  const location = useLocation();
   const formatPrice = (price) => `$${price.toFixed(2)}`;
   return (
     <div className="lg:col-span-1">
@@ -32,9 +33,11 @@ export default function OrderSummary() {
             <span>{(getCartTotalWithTax())}</span>
           </div>
         </div>
-        <Link to="/payment" className="block text-center w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors mb-4">
-          Proceed to Checkout
-        </Link>
+        {location.pathname !== "/payment" && (
+          <Link to="/payment" className="block text-center w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors mb-4">
+            Proceed to Checkout
+          </Link>
+        )}
         <Link
           to="/all-products"
           className="w-full block text-center text-blue-600 py-2 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
