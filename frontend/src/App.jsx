@@ -10,6 +10,7 @@ import { CartProvider } from "./contexts/CartContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ContactUs from "./screens/ContactUs";
+import PopUpNotification from "./widget/PopUpNotification";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
       <CartProvider>
         <Router>
           <Header />
+          <PopUpNotification />
           <div className="min-h-screen bg-gray-50">
             <Routes>
               <Route path="/" element={<Home />} />

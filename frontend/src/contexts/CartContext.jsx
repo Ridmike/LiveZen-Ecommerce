@@ -15,25 +15,28 @@ export const CartProvider = ({ children }) => {
     const stored = localStorage.getItem("cart");
     return stored ? JSON.parse(stored) : [];
   });
+  const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   const addToCart = (product, quantity = 1) => {
-    console.log("Adding to cart:", product.name, "quantity:", quantity);
     setCart((prevCart) => {
       const existing = prevCart.find((item) => item._id === product._id);
+      let updatedCart;
       if (existing) {
-        console.log("Item exists, updating quantity");
-        return prevCart.map((item) =>
+        updatedCart = prevCart.map((item) =>
           item._id === product._id
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
+      } else {
+        updatedCart = [...prevCart, { ...product, quantity }];
       }
-      console.log("Adding new item to cart");
-      return [...prevCart, { ...product, quantity }];
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 2000);
+      return updatedCart;
     });
   };
 
@@ -77,6 +80,8 @@ export const CartProvider = ({ children }) => {
     getCartTotal,
     getCartCount,
     setCart,
+    showNotification,
+    setShowNotification,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
