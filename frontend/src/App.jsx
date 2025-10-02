@@ -11,6 +11,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ContactUs from "./screens/ContactUs";
 import PopUpNotification from "./widget/PopUpNotification";
+import PaymentScreen from "./screens/PaymentScreen";
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
               <Route path="/search" element={<SearchResults />} />
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/contact-us" element={<ContactUs />} />
+              <Route path="/payment" element={<PaymentScreen />} />
             </Routes>
           </div>
           <Footer />

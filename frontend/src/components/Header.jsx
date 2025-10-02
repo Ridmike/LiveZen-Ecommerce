@@ -2,11 +2,14 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useSearch from "../hooks/useSearch";
 import { useCart } from "../hooks/addToCart";
+import DropDown from "../widget/DropDown";
+import useCategory from "../hooks/useCategory";
 
-export default function Header() {
+  export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const { getCartCount } = useCart();
+  const categories = useCategory();
   const {
     searchTerm,
     setSearchTerm,
@@ -146,14 +149,7 @@ export default function Header() {
               className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
-              Categories
-            </a>
-            <a
-              href="#"
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              About
+              <DropDown categories={categories} />
             </a>
             <a
               href="/contact-us"

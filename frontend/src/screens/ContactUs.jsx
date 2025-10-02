@@ -117,7 +117,7 @@ export default function ContactUs() {
           </div>
         </div>
         <form
-          action="#"
+          action="/contact-us"
           method="POST"
           className="px-6 pb-24 pt-12 sm:pb-20 lg:px-8 "
         >
