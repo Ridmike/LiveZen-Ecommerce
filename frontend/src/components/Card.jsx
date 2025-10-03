@@ -51,7 +51,6 @@ export default function Card({ product }) {
           src={primaryImage}
           alt={product.name}
           className="object-contain h-40 w-full rounded-lg"
-          style={{ background: "var(--lightGray)" }}
           loading="lazy"
           onError={(e) => {
             e.target.src = "/placeholder-image.jpg";

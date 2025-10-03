@@ -123,19 +123,49 @@ export default function Header() {
       {/* Main Header */}
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
+          
+          {/* Mobile menu button */}
+          <button
+            className="lg:hidden p-2 ml-2"
+            aria-label="Open menu"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            style={{ color: "var(--text)" }}
+          >
+            <svg
+              className="w-7 h-7"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="max-md:hidden bg-gradient-to-r from-blue-600 to-purple-600 text-white p-2 rounded-lg">
-              <svg className="w-6 h-6 max-lg:w-3 max-lg:h-3 max-sm:hidden" fill="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-6 h-6 max-lg:w-3 max-lg:h-3 max-sm:hidden"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1a1 1 0 0 0 2 0V9h4v1a1 1 0 0 0 2 0V9h2v10z" />
               </svg>
             </div>
-            <h1 className="text-2xl font-bold max-lg:text-lg "
-            style={{ color: "var(--darkgray)" }}>ShopBox</h1>
+            <h1
+              className="text-2xl font-bold max-lg:text-lg  "
+              style={{ color: "var(--darkgray)" }}
+            >
+              ShopBox
+            </h1>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-8">
             <Link
               to="/"
               className="font-medium transition-colors"
@@ -314,27 +344,6 @@ export default function Header() {
                   className="absolute -top-1 -right-1 text-xs rounded-full h-5 w-5 flex items-center justify-center"
                   style={{ background: "var(--red)", color: "var(--white)" }}
                 >
-                  {/* Hamburger menu for mobile */}
-                  <button
-                    className="md:hidden p-2 ml-2"
-                    aria-label="Open menu"
-                    onClick={() => setMobileMenuOpen((open) => !open)}
-                    style={{ color: "var(--text)" }}
-                  >
-                    <svg
-                      className="w-7 h-7"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 6h16M4 12h16M4 18h16"
-                      />
-                    </svg>
-                  </button>
                   {getCartCount()}
                 </span>
               )}
