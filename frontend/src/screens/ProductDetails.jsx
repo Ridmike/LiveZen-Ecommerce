@@ -15,7 +15,10 @@ export default function ProductDetails() {
   if (loading) {
     return (
       <div className="flex justify-center items-center py-20">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+        <div
+          className="animate-spin rounded-full h-12 w-12 border-b-2"
+          style={{ borderColor: "var(--text)" }}
+        ></div>
       </div>
     );
   }
@@ -24,11 +27,25 @@ export default function ProductDetails() {
     return (
       <div>
         <div className="container mx-auto px-4 py-20 text-center">
-          <p className="text-red-600 text-lg mb-4">Product not found</p>
-          <p className="text-gray-600 mb-4">{error}</p>
+          <p className="text-lg mb-4" style={{ color: "var(--red)" }}>
+            Product not found
+          </p>
+          <p className="mb-4" style={{ color: "var(--gray)" }}>
+            {error}
+          </p>
           <Link
             to="/"
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 rounded-lg transition-colors"
+            style={{
+              backgroundColor: "var(--blue)",
+              color: "var(--white)",
+            }}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.backgroundColor = "var(--active)")
+            }
+            onMouseOut={(e) =>
+              (e.currentTarget.style.backgroundColor = "var(--blue)")
+            }
           >
             Go Back Home
           </Link>
@@ -59,16 +76,28 @@ export default function ProductDetails() {
     <div>
       {/* Breadcrumb */}
       <div className="container mx-auto px-4 py-4">
-        <nav className="text-sm text-gray-600">
-          <Link to="/" className="hover:text-gray-900">
+        <nav className="text-sm" style={{ color: "var(--gray)" }}>
+          <Link
+            to="/"
+            className=""
+            style={{ color: "var(--gray)" }}
+            onMouseOver={(e) => (e.currentTarget.style.color = "var(--text)")}
+            onMouseOut={(e) => (e.currentTarget.style.color = "var(--gray)")}
+          >
             Home
           </Link>
           <span className="mx-2">/</span>
-          <Link to="/all-products" className="hover:text-gray-900">
+          <Link
+            to="/all-products"
+            className=""
+            style={{ color: "var(--gray)" }}
+            onMouseOver={(e) => (e.currentTarget.style.color = "var(--text)")}
+            onMouseOut={(e) => (e.currentTarget.style.color = "var(--gray)")}
+          >
             Products
           </Link>
           <span className="mx-2">/</span>
-          <span className="text-gray-900">{product.name}</span>
+          <span style={{ color: "var(--text)" }}>{product.name}</span>
         </nav>
       </div>
 
@@ -78,7 +107,7 @@ export default function ProductDetails() {
           {/* Image Gallery */}
           <div className="space-y-4">
             {/* Main Image */}
-            <div className="aspect-[4/3] bg-gray-100 rounded-xl overflow-hidden">
+            <div className="aspect-[4/3] rounded-xl overflow-hidden">
               <img
                 src={currentImage.url}
                 alt={product.name}
@@ -97,15 +126,20 @@ export default function ProductDetails() {
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}
                     className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 ${
-                      selectedImageIndex === index
-                        ? "border-blue-500"
-                        : "border-gray-200"
+                      selectedImageIndex === index ? "" : ""
                     }`}
+                    style={{
+                      borderColor:
+                        selectedImageIndex === index
+                          ? "var(--blue)"
+                          : "var(--gray)",
+                    }}
                   >
                     <img
                       src={image.url}
                       alt={`${product.name} ${index + 1}`}
-                      className="w-full h-full object-contain bg-gray-100"
+                      className="w-full h-full object-contain "
+                      style={{ backgroundColor: "var(--lightGray)" }}
                       onError={(e) => {
                         e.target.src = "/placeholder-image.jpg";
                       }}
@@ -120,14 +154,24 @@ export default function ProductDetails() {
           <div className="space-y-6">
             {/* Product Name & Favorite */}
             <div className="flex justify-between items-start">
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1
+                className="text-3xl font-bold"
+                style={{ color: "var(--text)" }}
+              >
                 {product.name}
               </h1>
-              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+              <button
+                className="p-2 rounded-full"
+                onMouseOver={(e) =>
+                  (e.currentTarget.style.fill = "var(--red)")
+                }
+                onMouseOut={(e) =>
+                  (e.currentTarget.style.fill = "var(--white)")
+                }
+              >
                 <svg
                   className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
+                  stroke="var(--red)"
                   viewBox="0 0 24 24"
                 >
                   <path
@@ -145,18 +189,33 @@ export default function ProductDetails() {
               <div className="flex items-center gap-4">
                 {hasOffer ? (
                   <>
-                    <span className="text-3xl font-bold text-green-600">
+                    <span
+                      className="text-3xl font-bold"
+                      style={{ color: "var(--green)" }}
+                    >
                       ${displayPrice}
                     </span>
-                    <span className="text-xl line-through text-gray-400">
+                    <span
+                      className="text-xl line-through"
+                      style={{ color: "var(--gray)" }}
+                    >
                       ${product.price}
                     </span>
-                    <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-semibold">
+                    <span
+                      className="px-2 py-1 rounded text-sm font-semibold"
+                      style={{
+                        backgroundColor: "var(--red)",
+                        color: "var(--white)",
+                      }}
+                    >
                       -{discountPercentage}% OFF
                     </span>
                   </>
                 ) : (
-                  <span className="text-3xl font-bold text-gray-900">
+                  <span
+                    className="text-3xl font-bold"
+                    style={{ color: "var(--text)" }}
+                  >
                     ${product.price}
                   </span>
                 )}
@@ -167,7 +226,7 @@ export default function ProductDetails() {
             {product.description && (
               <div>
                 <h3 className="text-lg font-semibold mb-2">Description</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="leading-relaxed" style={{ color: "var(--gray)" }}>
                   {product.description}
                 </p>
               </div>
@@ -177,26 +236,55 @@ export default function ProductDetails() {
             <div className="space-y-4">
               <div className="flex items-center space-x-4">
                 <span className="text-lg font-medium">Quantity:</span>
-                <div className="flex items-center border border-gray-300 rounded-lg">
+                <div
+                  className="flex items-center rounded-lg"
+                  style={{ border: "1px solid var(--gray)" }}
+                >
                   <button
                     onClick={() => handleQuantityChange(-1)}
                     disabled={quantity <= 1}
-                    className="px-3 py-2 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-3 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    style={{ backgroundColor: "var(--white)" }}
+                    onMouseOver={(e) => {
+                      if (!e.currentTarget.disabled) {
+                        e.currentTarget.style.backgroundColor =
+                          "var(--lightGray)";
+                      }
+                    }}
+                    onMouseOut={(e) =>
+                      (e.currentTarget.style.backgroundColor = "var(--white)")
+                    }
                   >
                     -
                   </button>
-                  <span className="px-4 py-2 border-x border-gray-300">
+                  <span
+                    className="px-4 py-2"
+                    style={{
+                      borderLeft: "1px solid var(--gray)",
+                      borderRight: "1px solid var(--gray)",
+                    }}
+                  >
                     {quantity}
                   </span>
                   <button
                     onClick={() => handleQuantityChange(1)}
                     disabled={quantity >= product.quantity}
-                    className="px-3 py-2 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-3 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    style={{ backgroundColor: "var(--white)" }}
+                    onMouseOver={(e) => {
+                      if (!e.currentTarget.disabled) {
+                        e.currentTarget.style.backgroundColor =
+                          "var(--lightGray)";
+                      }
+                    }}
+                    onMouseOut={(e) =>
+                      (e.currentTarget.style.backgroundColor = "var(--white)")
+                    }
                   >
                     +
                   </button>
                 </div>
-                <span className="text-sm text-gray-500">
+                <span className="text-sm" style={{ color: "var(--gray)" }}>
                   ({product.quantity} available)
                 </span>
               </div>
@@ -205,8 +293,22 @@ export default function ProductDetails() {
             {/* Action Buttons */}
             <div className="space-y-3">
               <button
-                className="w-full bg-black text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 px-6 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={product.quantity === 0}
+                style={{
+                  backgroundColor: "var(--black)",
+                  color: "var(--white)",
+                }}
+                onMouseOver={(e) => {
+                  if (!e.currentTarget.disabled) {
+                    e.currentTarget.style.backgroundColor = "var(--darkGray)";
+                  }
+                }}
+                onMouseOut={(e) => {
+                  if (!e.currentTarget.disabled) {
+                    e.currentTarget.style.backgroundColor = "var(--black)";
+                  }
+                }}
                 onClick={() => {
                   addToCart(product, quantity);
                   // Optional: Show success message or reset quantity
@@ -217,8 +319,23 @@ export default function ProductDetails() {
               </button>
 
               <button
-                className="w-full border border-black text-black py-3 px-6 rounded-lg font-semibold hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 px-6 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={product.quantity === 0}
+                style={{
+                  border: "1px solid var(--black)",
+                  backgroundColor: "var(--white)",
+                  color: "var(--black)",
+                }}
+                onMouseOver={(e) => {
+                  if (!e.currentTarget.disabled) {
+                    e.currentTarget.style.backgroundColor = "var(--lightGray)";
+                  }
+                }}
+                onMouseOut={(e) => {
+                  if (!e.currentTarget.disabled) {
+                    e.currentTarget.style.backgroundColor = "var(--white)";
+                  }
+                }}
                 onClick={() => {
                   console.log("Buy now:", { productId: product._id, quantity });
                 }}
@@ -229,7 +346,10 @@ export default function ProductDetails() {
 
             {/* Shipping Info */}
             <div className="space-y-2 text-sm">
-              <div className="flex items-center text-gray-600">
+              <div
+                className="flex items-center"
+                style={{ color: "var(--gray)" }}
+              >
                 <svg
                   className="w-4 h-4 mr-2"
                   fill="none"
@@ -245,7 +365,10 @@ export default function ProductDetails() {
                 </svg>
                 Free shipping over $1000
               </div>
-              <div className="flex items-center text-gray-600">
+              <div
+                className="flex items-center"
+                style={{ color: "var(--gray)" }}
+              >
                 <svg
                   className="w-4 h-4 mr-2"
                   fill="none"
@@ -269,7 +392,10 @@ export default function ProductDetails() {
       {/* Related Products */}
       {relatedProducts.length > 0 && (
         <div className="container mx-auto px-4 py-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">
+          <h2
+            className="text-2xl font-bold mb-8"
+            style={{ color: "var(--text)" }}
+          >
             Related Products
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">

@@ -27,10 +27,11 @@ export default function CartScreen({}) {
         <div className="container mx-auto px-4 py-16 text-center">
           <div className="max-w-md mx-auto">
             <svg
-              className="w-24 h-24 mx-auto text-gray-300 mb-6"
+              className="w-24 h-24 mx-auto mb-6"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              style={{ color: "var(--gray)" }}
             >
               <path
                 strokeLinecap="round"
@@ -39,15 +40,28 @@ export default function CartScreen({}) {
                 d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.293 2.293A1 1 0 005 16h12M7 13v4a1 1 0 001 1h8a1 1 0 001-1v-4m-8 0V9a1 1 0 011-1h6a1 1 0 011 1v4"
               />
             </svg>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2
+              className="text-2xl font-bold mb-4"
+              style={{ color: "var(--text)" }}
+            >
               Your cart is empty
             </h2>
-            <p className="text-gray-600 mb-8">
+            <p className="mb-8" style={{ color: "var(--gray)" }}>
               Looks like you haven't added any items to your cart yet.
             </p>
             <Link
               to="/all-products"
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-6 py-3 rounded-lg transition-colors"
+              style={{
+                backgroundColor: "var(--blue)",
+                color: "var(--white)",
+              }}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.backgroundColor = "var(--active)")
+              }
+              onMouseOut={(e) =>
+                (e.currentTarget.style.backgroundColor = "var(--blue)")
+              }
             >
               Continue Shopping
             </Link>
@@ -61,12 +75,15 @@ export default function CartScreen({}) {
     <div>
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold" style={{ color: "var(--text)" }}>
             Shopping Cart ({getCartCount()} items)
           </h1>
           <button
             onClick={clearCart}
-            className="text-red-600 hover:text-red-800 font-medium"
+            className="font-medium"
+            style={{ color: "var(--red)" }}
+            onMouseOver={(e) => (e.currentTarget.style.opacity = "0.8")}
+            onMouseOut={(e) => (e.currentTarget.style.opacity = "1")}
           >
             Clear Cart
           </button>
@@ -89,7 +106,8 @@ export default function CartScreen({}) {
                 return (
                   <div
                     key={item._id}
-                    className="bg-white rounded-lg shadow-md p-6 flex flex-col sm:flex-row gap-4"
+                    className="rounded-lg shadow-md p-6 flex flex-col sm:flex-row gap-4"
+                    style={{ backgroundColor: "var(--white)" }}
                   >
                     {/* Product Image */}
                     <div className="w-full sm:w-32 h-32 flex-shrink-0">
@@ -106,12 +124,22 @@ export default function CartScreen({}) {
                     {/* Product Details */}
                     <div className="flex-1">
                       <div className="flex justify-between items-start mb-2">
-                        <h3 className="text-lg font-semibold text-gray-900">
+                        <h3
+                          className="text-lg font-semibold"
+                          style={{ color: "var(--text)" }}
+                        >
                           {item.name}
                         </h3>
                         <button
                           onClick={() => removeFromCart(item._id)}
-                          className="text-red-500 hover:text-red-700 p-1"
+                          className="p-1"
+                          style={{ color: "var(--red)" }}
+                          onMouseOver={(e) =>
+                            (e.currentTarget.style.opacity = "0.8")
+                          }
+                          onMouseOut={(e) =>
+                            (e.currentTarget.style.opacity = "1")
+                          }
                         >
                           <svg
                             className="w-5 h-5"
@@ -130,7 +158,10 @@ export default function CartScreen({}) {
                       </div>
 
                       {item.description && (
-                        <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                        <p
+                          className="text-sm mb-3 line-clamp-2"
+                          style={{ color: "var(--gray)" }}
+                        >
                           {item.description}
                         </p>
                       )}
@@ -138,11 +169,17 @@ export default function CartScreen({}) {
                       <div className="flex items-center justify-between">
                         {/* Price */}
                         <div className="flex items-center gap-2">
-                          <span className="text-xl font-bold text-gray-900">
+                          <span
+                            className="text-xl font-bold"
+                            style={{ color: "var(--text)" }}
+                          >
                             {formatPrice(itemPrice)}
                           </span>
                           {hasOffer && (
-                            <span className="text-sm line-through text-gray-400">
+                            <span
+                              className="text-sm line-through"
+                              style={{ color: "var(--gray)" }}
+                            >
                               {formatPrice(originalPrice)}
                             </span>
                           )}
@@ -154,7 +191,21 @@ export default function CartScreen({}) {
                             onClick={() =>
                               handleQuantityChange(item._id, item.quantity - 1)
                             }
-                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100"
+                            className="w-8 h-8 rounded-full flex items-center justify-center disabled:opacity-50"
+                            style={{
+                              border: "1px solid var(--gray)",
+                              backgroundColor: "var(--white)",
+                            }}
+                            onMouseOver={(e) => {
+                              if (!e.currentTarget.disabled) {
+                                e.currentTarget.style.backgroundColor =
+                                  "var(--lightGray)";
+                              }
+                            }}
+                            onMouseOut={(e) =>
+                              (e.currentTarget.style.backgroundColor =
+                                "var(--white)")
+                            }
                             disabled={item.quantity <= 1}
                           >
                             -
@@ -166,7 +217,19 @@ export default function CartScreen({}) {
                             onClick={() =>
                               handleQuantityChange(item._id, item.quantity + 1)
                             }
-                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100"
+                            className="w-8 h-8 rounded-full flex items-center justify-center"
+                            style={{
+                              border: "1px solid var(--gray)",
+                              backgroundColor: "var(--white)",
+                            }}
+                            onMouseOver={(e) =>
+                              (e.currentTarget.style.backgroundColor =
+                                "var(--lightGray)")
+                            }
+                            onMouseOut={(e) =>
+                              (e.currentTarget.style.backgroundColor =
+                                "var(--white)")
+                            }
                           >
                             +
                           </button>
@@ -175,7 +238,10 @@ export default function CartScreen({}) {
 
                       {/* Item Total */}
                       <div className="mt-2 text-right">
-                        <span className="text-lg font-semibold text-gray-900">
+                        <span
+                          className="text-lg font-semibold"
+                          style={{ color: "var(--text)" }}
+                        >
                           Total: {formatPrice(itemPrice * item.quantity)}
                         </span>
                       </div>

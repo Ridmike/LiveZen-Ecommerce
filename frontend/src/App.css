@@ -4,13 +4,12 @@
     --white: #F3F4F6;
     --text: #111827;
     --active: #1E40AF;
-    --error: #EF4444;
+    --red: #EF4444;
     --yellow: #FACC15;
     --green: #16A34A;
     --darkGray: #111827;
     --gray: #4B5563;
-    --lightGray: #F3F4F6;
+    --lightGray: #e9e6e6;
     --fadeBlack: rgba(0, 0, 0, 0.1);
     --lightBlue: #EFF6FF;
-
 }

@@ -5,7 +5,7 @@ import { useCart } from "../hooks/addToCart";
 import DropDown from "../widget/DropDown";
 import useCategory from "../hooks/useCategory";
 
-  export default function Header() {
+export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const { getCartCount } = useCart();
@@ -113,54 +113,94 @@ import useCategory from "../hooks/useCategory";
     }, 150);
   };
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <header className="bg-white shadow-lg sticky top-0 z-50">
+    <header
+      className="bg-white shadow-lg sticky top-0 z-50"
+      style={{ background: "var(--white)" }}
+    >
       {/* Main Header */}
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
+          
+          {/* Mobile menu button */}
+          <button
+            className="lg:hidden p-2 ml-2"
+            aria-label="Open menu"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            style={{ color: "var(--text)" }}
+          >
+            <svg
+              className="w-7 h-7"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-2 rounded-lg">
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <div className="max-md:hidden bg-gradient-to-r from-blue-600 to-purple-600 text-white p-2 rounded-lg">
+              <svg
+                className="w-6 h-6 max-lg:w-3 max-lg:h-3 max-sm:hidden"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zM10 6a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1a1 1 0 0 0 2 0V9h4v1a1 1 0 0 0 2 0V9h2v10z" />
               </svg>
             </div>
-            <h1 className="text-2xl font-bold text-gray-800">ShopBox</h1>
+            <h1
+              className="text-2xl font-bold max-lg:text-lg  "
+              style={{ color: "var(--darkgray)" }}
+            >
+              ShopBox
+            </h1>
           </Link>
 
-          {/* Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-8">
             <Link
               to="/"
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              className="font-medium transition-colors"
+              style={{ color: "var(--text)" }}
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
               Home
             </Link>
             <Link
               to="/all-products"
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              className="font-medium transition-colors"
+              style={{ color: "var(--text)" }}
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
               All Products
             </Link>
             <a
               href="#"
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              className="font-medium transition-colors"
+              style={{ color: "var(--text)" }}
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
               <DropDown categories={categories} />
             </a>
             <a
               href="/contact-us"
-              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+              className="font-medium transition-colors"
+              style={{ color: "var(--text)" }}
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
               Contact
             </a>
           </nav>
 
-          {/* Search Bar */}
+          {/* Desktop Search Bar */}
           <div
             className="hidden md:flex items-center flex-1 max-w-lg mx-8"
             ref={searchRef}
@@ -174,7 +214,12 @@ import useCategory from "../hooks/useCategory";
                   onChange={handleInputChange}
                   onFocus={handleInputFocus}
                   onBlur={handleInputBlur}
-                  className="w-full px-4 py-2 pl-10 pr-12 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-2 pl-10 pr-12 rounded-full focus:outline-none focus:ring-2 focus:border-transparent disabled:cursor-not-allowed"
+                  style={{
+                    background: "var(--white)",
+                    color: "var(--text)",
+                    border: "1px solid var(--gray)",
+                  }}
                 />
                 <svg
                   className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -198,7 +243,11 @@ import useCategory from "../hooks/useCategory";
                       setShowSuggestions(false);
                     }
                   }}
-                  className={`absolute right-2 top-1/2 transform -translate-y-1/2 text-white px-3 py-1 rounded-full text-sm transition-colors ${"bg-blue-600 hover:bg-blue-700"}`}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 px-3 py-1 rounded-full text-sm transition-colors"
+                  style={{
+                    background: "var(--blue)",
+                    color: "var(--white)",
+                  }}
                 >
                   Search
                 </button>
@@ -206,7 +255,13 @@ import useCategory from "../hooks/useCategory";
 
               {/* Search Suggestions */}
               {showSuggestions && suggestions.length > 0 && (
-                <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-lg mt-1 z-50">
+                <div
+                  className="absolute top-full left-0 right-0 rounded-lg shadow-lg mt-1 z-50"
+                  style={{
+                    background: "var(--white)",
+                    border: "1px solid var(--gray)",
+                  }}
+                >
                   {suggestions.map((suggestion, index) => (
                     <button
                       key={index}
@@ -214,7 +269,11 @@ import useCategory from "../hooks/useCategory";
                         e.preventDefault();
                         handleSuggestionClick(suggestion);
                       }}
-                      className="w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors first:rounded-t-lg last:rounded-b-lg"
+                      className="w-full text-left px-4 py-2 transition-colors first:rounded-t-lg last:rounded-b-lg"
+                      style={{
+                        color: "var(--text)",
+                        background: "var(--white)",
+                      }}
                     >
                       {suggestion}
                     </button>
@@ -224,10 +283,13 @@ import useCategory from "../hooks/useCategory";
             </div>
           </div>
 
-          {/* Right Side Icons */}
-          <div className="flex items-center space-x-4">
+          {/* Right Side Icons & Mobile Menu Button */}
+          <div className="flex items-center space-x-4 md:space-x-4">
             {/* User Account */}
-            <button className="p-2 text-gray-700 hover:text-blue-600 transition-colors">
+            <button
+              className="p-2 transition-colors max-lg:hidden"
+              style={{ color: "var(--text)" }}
+            >
               <svg
                 className="w-6 h-6"
                 fill="none"
@@ -261,7 +323,8 @@ import useCategory from "../hooks/useCategory";
             {/* Shopping Cart */}
             <Link
               to="/cart"
-              className="p-2 text-gray-700 hover:text-blue-600 transition-colors relative"
+              className="p-2 transition-colors relative"
+              style={{ color: "var(--text)" }}
             >
               <svg
                 className="w-6 h-6"
@@ -277,7 +340,10 @@ import useCategory from "../hooks/useCategory";
                 />
               </svg>
               {getCartCount() > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span
+                  className="absolute -top-1 -right-1 text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                  style={{ background: "var(--red)", color: "var(--white)" }}
+                >
                   {getCartCount()}
                 </span>
               )}
@@ -285,6 +351,150 @@ import useCategory from "../hooks/useCategory";
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu Drawer */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 flex md:hidden">
+          {/* Overlay */}
+          <div
+            className="fixed inset-0 bg-black bg-opacity-30"
+            onClick={() => setMobileMenuOpen(false)}
+          ></div>
+          {/* Drawer */}
+          <div
+            className="relative bg-white w-4/5 max-w-xs h-full shadow-lg flex flex-col"
+            style={{ background: "var(--white)" }}
+          >
+            <button
+              className="absolute top-4 right-4 p-2"
+              aria-label="Close menu"
+              onClick={() => setMobileMenuOpen(false)}
+              style={{ color: "var(--text)" }}
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <nav className="flex flex-col mt-16 space-y-4 px-6">
+              <Link
+                to="/"
+                className="font-medium"
+                style={{ color: "var(--text)" }}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link
+                to="/all-products"
+                className="font-medium"
+                style={{ color: "var(--text)" }}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                All Products
+              </Link>
+              <span className="font-medium" style={{ color: "var(--text)" }}>
+                <DropDown categories={categories} />
+              </span>
+              <a
+                href="/contact-us"
+                className="font-medium"
+                style={{ color: "var(--text)" }}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Contact
+              </a>
+            </nav>
+            {/* Mobile Search Bar */}
+            <div className="mt-8 px-6">
+              <form onSubmit={handleSearchSubmit} ref={searchRef}>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={localSearchTerm}
+                    onChange={handleInputChange}
+                    onFocus={handleInputFocus}
+                    onBlur={handleInputBlur}
+                    className="w-full px-4 py-2 pl-10 pr-12 rounded-full focus:outline-none focus:ring-2 focus:border-transparent disabled:cursor-not-allowed"
+                    style={{
+                      background: "var(--white)",
+                      color: "var(--text)",
+                      border: "1px solid var(--gray)",
+                    }}
+                  />
+                  <svg
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                  <button
+                    type="submit"
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      if (localSearchTerm.trim()) {
+                        handleSearch(localSearchTerm);
+                        setShowSuggestions(false);
+                      }
+                    }}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 px-3 py-1 rounded-full text-sm transition-colors"
+                    style={{
+                      background: "var(--blue)",
+                      color: "var(--white)",
+                    }}
+                  >
+                    Search
+                  </button>
+                  {/* Search Suggestions */}
+                  {showSuggestions && suggestions.length > 0 && (
+                    <div
+                      className="absolute top-full left-0 right-0 rounded-lg shadow-lg mt-1 z-50"
+                      style={{
+                        background: "var(--white)",
+                        border: "1px solid var(--gray)",
+                      }}
+                    >
+                      {suggestions.map((suggestion, index) => (
+                        <button
+                          key={index}
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            handleSuggestionClick(suggestion);
+                          }}
+                          className="w-full text-left px-4 py-2 transition-colors first:rounded-t-lg last:rounded-b-lg"
+                          style={{
+                            color: "var(--text)",
+                            background: "var(--white)",
+                          }}
+                        >
+                          {suggestion}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
