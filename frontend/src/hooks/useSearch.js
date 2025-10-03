@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-import useCategory from "./useCategory";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSearchContext } from '../contexts/SearchContext';
@@ -21,7 +20,6 @@ export default function useSearch() {
 
   const [allProducts, setAllProducts] = useState([]);
   const [productsLoaded, setProductsLoaded] = useState(false);
-  const categories = useCategory();
 
   // Perform search
   const performSearch = useCallback((term) => {
@@ -79,18 +77,12 @@ export default function useSearch() {
 
   // Search by category
   const searchByCategory = useCallback((categoryId) => {
-    let resolvedCategoryId = categoryId;
-    // If a category name is passed, resolve to _id
-    if (typeof categoryId === "string" && categoryId.length && !categoryId.match(/^[0-9a-fA-F]{24}$/)) {
-      const found = categories.find(cat => cat.name.toLowerCase() === categoryId.toLowerCase());
-      if (found) resolvedCategoryId = found._id;
-    }
     const categoryProducts = allProducts.filter(product => {
-      return product.proCategoryId && product.proCategoryId._id === resolvedCategoryId;
+      return product.proCategoryId && product.proCategoryId._id === categoryId;
     });
     setSearchResults(categoryProducts);
-    navigate(`/search?category=${resolvedCategoryId}`);
-  }, [allProducts, setSearchResults, navigate, categories]);
+    navigate(`/search?category=${categoryId}`);
+  }, [allProducts, setSearchResults, navigate]);
 
   // Get search suggestions
   const getSearchSuggestions = useCallback((term) => {
