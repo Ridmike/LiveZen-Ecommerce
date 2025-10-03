@@ -123,7 +123,6 @@ export default function Header() {
       {/* Main Header */}
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          
           {/* Mobile menu button */}
           <button
             className="lg:hidden p-2 ml-2"
@@ -183,7 +182,6 @@ export default function Header() {
               All Products
             </Link>
             <a
-              href="#"
               className="font-medium transition-colors"
               style={{ color: "var(--text)" }}
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
