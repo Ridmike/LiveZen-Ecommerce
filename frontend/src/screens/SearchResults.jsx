@@ -150,65 +150,6 @@ export default function SearchResults() {
         )}
 
         {/* Search Suggestions */}
-        {searchResults.length === 0 && !isSearching && (
-          <div
-            className="mt-12 rounded-lg p-8"
-            style={{ backgroundColor: "var(--lightGray)" }}
-          >
-            <h3
-              className="text-lg font-semibold mb-4"
-              style={{ color: "var(--text)" }}
-            >
-              Popular Categories
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <Link
-                to="/search?category=electronics"
-                className="p-4 rounded-lg hover:shadow-md transition-shadow text-center"
-                style={{
-                  backgroundColor: "var(--white)",
-                  color: "var(--text)",
-                }}
-              >
-                <div className="text-2xl mb-2">📱</div>
-                <span className="text-sm font-medium">Electronics</span>
-              </Link>
-              <Link
-                to="/search?category=fashion"
-                className="p-4 rounded-lg hover:shadow-md transition-shadow text-center"
-                style={{
-                  backgroundColor: "var(--white)",
-                  color: "var(--text)",
-                }}
-              >
-                <div className="text-2xl mb-2">👕</div>
-                <span className="text-sm font-medium">Fashion</span>
-              </Link>
-              <Link
-                to="/search?category=home"
-                className="p-4 rounded-lg hover:shadow-md transition-shadow text-center"
-                style={{
-                  backgroundColor: "var(--white)",
-                  color: "var(--text)",
-                }}
-              >
-                <div className="text-2xl mb-2">🏠</div>
-                <span className="text-sm font-medium">Home & Garden</span>
-              </Link>
-              <Link
-                to="/search?category=sports"
-                className="p-4 rounded-lg hover:shadow-md transition-shadow text-center"
-                style={{
-                  backgroundColor: "var(--white)",
-                  color: "var(--text)",
-                }}
-              >
-                <div className="text-2xl mb-2">⚽</div>
-                <span className="text-sm font-medium">Sports</span>
-              </Link>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

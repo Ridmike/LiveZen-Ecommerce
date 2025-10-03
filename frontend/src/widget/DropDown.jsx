@@ -1,6 +1,8 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import useSearch from "../hooks/useSearch";
 
 export default function DropDown({ categories = [] }) {
+  const { searchByCategory } = useSearch();
   return (
     <Menu as="div" className="relative inline-block">
       <MenuButton
@@ -24,10 +26,9 @@ export default function DropDown({ categories = [] }) {
           {categories.length > 0 ? (
             categories.map((cat) => (
               <MenuItem key={cat._id}>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm data-[focus]:outline-none"
-                  style={{ color: "var(--gray)" }}
+                <button
+                  className="block w-full text-left px-4 py-2 text-sm data-[focus]:outline-none"
+                  style={{ color: "var(--gray)", background: "transparent" }}
                   onMouseOver={(e) => {
                     e.currentTarget.style.backgroundColor = "var(--lightGray)";
                     e.currentTarget.style.color = "var(--text)";
@@ -36,9 +37,10 @@ export default function DropDown({ categories = [] }) {
                     e.currentTarget.style.backgroundColor = "transparent";
                     e.currentTarget.style.color = "var(--gray)";
                   }}
+                  onClick={() => searchByCategory(cat._id)}
                 >
                   {cat.name}
-                </a>
+                </button>
               </MenuItem>
             ))
           ) : (

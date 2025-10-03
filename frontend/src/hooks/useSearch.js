@@ -48,7 +48,8 @@ export default function useSearch() {
     
     const filteredProducts = allProducts.filter(product => 
       product.name.toLowerCase().includes(term.toLowerCase()) ||
-      (product.description && product.description.toLowerCase().includes(term.toLowerCase()))
+      (product.description && product.description.toLowerCase().includes(term.toLowerCase())) ||
+      (product.category && product.category.toLowerCase().includes(term.toLowerCase()))
     );
 
     setSearchResults(filteredProducts);
@@ -66,9 +67,10 @@ export default function useSearch() {
 
   // Search by category
   const searchByCategory = useCallback((categoryId) => {
-    const categoryProducts = allProducts.filter(product => 
-      product.proCategoryId === categoryId
-    );
+    const categoryProducts = allProducts.filter(product => {
+      // proCategoryId is an object with _id property
+      return product.proCategoryId && product.proCategoryId._id === categoryId;
+    });
     setSearchResults(categoryProducts);
     navigate(`/search?category=${categoryId}`);
   }, [allProducts, setSearchResults, navigate]);
