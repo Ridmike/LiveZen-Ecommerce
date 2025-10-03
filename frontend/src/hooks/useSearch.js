@@ -1,9 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
+import useCategory from "./useCategory";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSearchContext } from '../contexts/SearchContext';
 
 export default function useSearch() {
+  // Store a queued search if products aren't loaded yet
+  const [queuedSearch, setQueuedSearch] = useState(null);
   const navigate = useNavigate();
   const {
     searchTerm,
@@ -18,6 +21,27 @@ export default function useSearch() {
 
   const [allProducts, setAllProducts] = useState([]);
   const [productsLoaded, setProductsLoaded] = useState(false);
+  const categories = useCategory();
+
+  // Perform search
+  const performSearch = useCallback((term) => {
+    if (!term || !term.trim()) {
+      setSearchResults([]);
+      return;
+    }
+    if (!productsLoaded) {
+      setQueuedSearch(term);
+      return;
+    }
+    setIsSearching(true);
+    const filteredProducts = allProducts.filter(product => 
+      product.name.toLowerCase().includes(term.toLowerCase()) ||
+      (product.description && product.description.toLowerCase().includes(term.toLowerCase())) ||
+      (product.category && product.category.toLowerCase().includes(term.toLowerCase()))
+    );
+    setSearchResults(filteredProducts);
+    setIsSearching(false);
+  }, [allProducts, setSearchResults, setIsSearching, addToHistory, productsLoaded]);
 
   // Fetch all products for search
   useEffect(() => {
@@ -37,43 +61,36 @@ export default function useSearch() {
     fetchAllProducts();
   }, []);
 
-  // Perform search
-  const performSearch = useCallback((term) => {
-    if (!term || !term.trim()) {
-      setSearchResults([]);
-      return;
+  // If products just loaded and there was a queued search, run it
+  useEffect(() => {
+    if (productsLoaded && queuedSearch) {
+      performSearch(queuedSearch);
+      setQueuedSearch(null);
     }
-
-    setIsSearching(true);
-    
-    const filteredProducts = allProducts.filter(product => 
-      product.name.toLowerCase().includes(term.toLowerCase()) ||
-      (product.description && product.description.toLowerCase().includes(term.toLowerCase())) ||
-      (product.category && product.category.toLowerCase().includes(term.toLowerCase()))
-    );
-
-    setSearchResults(filteredProducts);
-    setIsSearching(false);
-  }, [allProducts, setSearchResults, setIsSearching, addToHistory]);
+  }, [productsLoaded, queuedSearch, performSearch]);
   // Handle search submission
   const handleSearch = useCallback((term) => {
-    const searchQuery = term || searchTerm;
-    if (!searchQuery || !searchQuery.trim()) return;
-
-    setSearchTerm(searchQuery);
-    performSearch(searchQuery);
-    navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+  const searchQuery = term || searchTerm;
+  if (!searchQuery || !searchQuery.trim()) return;
+  setSearchTerm(searchQuery);
+  performSearch(searchQuery);
+  navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
   }, [searchTerm, setSearchTerm, performSearch, navigate]);
 
   // Search by category
   const searchByCategory = useCallback((categoryId) => {
+    let resolvedCategoryId = categoryId;
+    // If a category name is passed, resolve to _id
+    if (typeof categoryId === "string" && categoryId.length && !categoryId.match(/^[0-9a-fA-F]{24}$/)) {
+      const found = categories.find(cat => cat.name.toLowerCase() === categoryId.toLowerCase());
+      if (found) resolvedCategoryId = found._id;
+    }
     const categoryProducts = allProducts.filter(product => {
-      // proCategoryId is an object with _id property
-      return product.proCategoryId && product.proCategoryId._id === categoryId;
+      return product.proCategoryId && product.proCategoryId._id === resolvedCategoryId;
     });
     setSearchResults(categoryProducts);
-    navigate(`/search?category=${categoryId}`);
-  }, [allProducts, setSearchResults, navigate]);
+    navigate(`/search?category=${resolvedCategoryId}`);
+  }, [allProducts, setSearchResults, navigate, categories]);
 
   // Get search suggestions
   const getSearchSuggestions = useCallback((term) => {

@@ -160,18 +160,11 @@ export default function ProductDetails() {
               >
                 {product.name}
               </h1>
-              <button
-                className="p-2 rounded-full"
-                onMouseOver={(e) =>
-                  (e.currentTarget.style.fill = "var(--red)")
-                }
-                onMouseOut={(e) =>
-                  (e.currentTarget.style.fill = "var(--white)")
-                }
-              >
+              <button className="p-2 rounded-full">
                 <svg
                   className="w-6 h-6"
                   stroke="var(--red)"
+                  fill="none"
                   viewBox="0 0 24 24"
                 >
                   <path
