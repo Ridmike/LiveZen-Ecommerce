@@ -1,10 +1,12 @@
 import { useState } from "react";
 
 export default function HeroSection() {
-
   return (
-    <div className="bg-white dark:bg-gray-900">
-      <div className="relative isolate overflow-hidden ">
+    <div
+      style={{ backgroundColor: "var(--white)" }}
+    >
+      <div className="relative isolate overflow-hidden"
+      style={{ backgroundColor: "var(--gray)" }}>
         {/* <img
           alt=""
           src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2830&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
@@ -17,7 +19,7 @@ export default function HeroSection() {
         /> */}
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+          className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-2xl sm:-top-80"
         >
           <div
             style={{
@@ -28,7 +30,7 @@ export default function HeroSection() {
           />
         </div>
         <div className="mx-auto max-w-7xl px-6 ">
-          <div className="mx-auto  py-20 sm:py-30 lg:py-40">
+          <div className="mx-auto  py-20 sm:py-30 lg:py-30">
             {/* <div className="hidden sm:mb-8 sm:flex sm:justify-center">
               <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20 dark:text-gray-400 dark:ring-white/10 dark:hover:ring-white/20">
                 Announcing our next round of funding.{' '}
@@ -39,10 +41,16 @@ export default function HeroSection() {
               </div>
             </div> */}
             <div className="text-center">
-              <h1 className="text-balance text-xl font-extrabold tracking-tight text-gray-900 sm:text-xl dark:text-white">
+              <p
+                className="text-balance text-xl font-extrabold tracking-tight sm:text-4xl "
+                style={{ color: "var(--text)" }}
+              >
                 Elevate Your Shopping Experience
-              </h1>
-              <p className="mt-8 text-pretty text-lg font-medium text-gray-600 sm:text-xl/8 dark:text-gray-400">
+              </p>
+              <p
+                className="mt-8 text-pretty text-lg font-medium sm:text-xl "
+                style={{ color: "var(--darkgray)" }}
+              >
                 Discover the latest trends, exclusive deals, and top brands all
                 in one place. Shop with confidence and enjoy fast delivery,
                 secure payments, and 24/7 customer support. Your favorite
@@ -51,13 +59,20 @@ export default function HeroSection() {
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <a
                   href="/all-products"
-                  className="rounded-md bg-yellow-400 px-6 py-3 text-lg font-bold text-gray-900 shadow-lg hover:bg-yellow-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-200 dark:focus-visible:outline-yellow-300 transition-all"
+                  className="rounded-md px-6 py-3 text-lg font-bold shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 transition-all"
+                  style={{
+                    backgroundColor: "var(--yellow)",
+                    color: "var(--text)",
+                    focusVisibleOutlineColor: "var(--yellow)",
+                  }}
+                  
                 >
                   Shop Now
                 </a>
                 <a
                   href="#deals"
-                  className="text-lg font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+                  className="text-lg font-semibold hover:underline"
+                  style={{ color: "var(--blue)" }}
                 >
                   View Deals <span aria-hidden="true">→</span>
                 </a>

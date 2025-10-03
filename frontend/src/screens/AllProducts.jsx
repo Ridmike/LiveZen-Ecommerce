@@ -59,18 +59,35 @@ export default function AllProducts() {
 
   const LoadingSpinner = () => (
     <div className="flex justify-center items-center py-20">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      <div
+        className="animate-spin rounded-full h-12 w-12 border-b-2"
+        style={{ borderColor: "var(--text)" }}
+      ></div>
     </div>
   );
 
   const ErrorMessage = () => (
     <div className="flex justify-center items-center py-20">
       <div className="text-center">
-        <p className="text-red-600 text-lg mb-4">Failed to load products</p>
-        <p className="text-gray-600 mb-4">{error}</p>
+        <p className="text-lg mb-4" style={{ color: "var(--red)" }}>
+          Failed to load products
+        </p>
+        <p className="mb-4" style={{ color: "var(--gray)" }}>
+          {error}
+        </p>
         <button
           onClick={refetch}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          className="px-4 py-2 rounded-lg transition-colors"
+          style={{
+            backgroundColor: "var(--blue)",
+            color: "var(--white)",
+          }}
+          onMouseOver={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--active)")
+          }
+          onMouseOut={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--blue)")
+          }
         >
           Try Again
         </button>
@@ -82,7 +99,7 @@ export default function AllProducts() {
     if (filteredProducts.length === 0) {
       return (
         <div className="container mx-auto px-4 py-20 text-center">
-          <p className="text-gray-600 text-lg">
+          <p className="text-lg" style={{ color: "var(--gray)" }}>
             {localSearchTerm
               ? "No products found matching your search"
               : "No products available"}
@@ -96,8 +113,10 @@ export default function AllProducts() {
         {/* Header with filters */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">All Products</h1>
-            <p className="text-gray-600 mt-1">
+            <h1 className="text-3xl font-bold" style={{ color: "var(--text)" }}>
+              All Products
+            </h1>
+            <p className="mt-1" style={{ color: "var(--gray)" }}>
               {filteredProducts.length} product
               {filteredProducts.length !== 1 ? "s" : ""} found
               {localSearchTerm && <span> for "{localSearchTerm}"</span>}
@@ -109,7 +128,13 @@ export default function AllProducts() {
             <select
               value={filterBy}
               onChange={(e) => setFilterBy(e.target.value)}
-              className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="rounded-lg px-3 py-2 focus:outline-none focus:ring-2"
+              style={{
+                border: "1px solid var(--gray)",
+                backgroundColor: "var(--white)",
+                color: "var(--text)",
+                focusRingColor: "var(--blue)",
+              }}
             >
               <option value="all">All Products</option>
               <option value="sale">On Sale</option>
@@ -121,7 +146,13 @@ export default function AllProducts() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="rounded-lg px-3 py-2 focus:outline-none focus:ring-2"
+              style={{
+                border: "1px solid var(--gray)",
+                backgroundColor: "var(--white)",
+                color: "var(--text)",
+                focusRingColor: "var(--blue)",
+              }}
             >
               <option value="name">Sort by Name</option>
               <option value="price-low">Price: Low to High</option>
@@ -141,7 +172,6 @@ export default function AllProducts() {
 
   return (
     <div>
-
       {loading && <LoadingSpinner />}
       {error && <ErrorMessage />}
       {!loading && !error && <ProductsGrid />}

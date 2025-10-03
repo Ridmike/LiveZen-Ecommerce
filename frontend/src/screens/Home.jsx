@@ -11,7 +11,10 @@ export default function Home() {
 
   const LoadingSpinner = () => (
     <div className="flex justify-center items-center py-20">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      <div
+        className="animate-spin rounded-full h-12 w-12 border-b-2"
+        style={{ borderColor: "var(--text)" }}
+      ></div>
     </div>
   );
 
@@ -23,10 +26,19 @@ export default function Home() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-row justify-between mb-4">
-          <h2 className="text-3xl font-bold text-gray-900  text-center">
+          <h2
+            className="text-3xl font-bold text-center"
+            style={{ color: "var(--text)" }}
+          >
             Featured Products
           </h2>
-          <div className="text-xl font-semibold text-black self-center bg-black/10 px-4 py-2 rounded-lg">
+          <div
+            className="text-xl font-semibold self-center px-4 py-2 rounded-lg"
+            style={{
+              color: "var(--text)",
+              backgroundColor: "var(--fadeBlack)",
+            }}
+          >
             <a href="/all-products">All Products</a>
           </div>
         </div>
@@ -43,11 +55,9 @@ export default function Home() {
   return (
     <div>
       <HeroSection />
-
       {loading && <LoadingSpinner />}
       {/* {error && <ErrorMessage />} */}
       {!loading && !error && <ProductsSection />}
-      
       <Categories />
     </div>
   );

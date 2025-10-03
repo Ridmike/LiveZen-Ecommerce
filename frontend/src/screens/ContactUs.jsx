@@ -6,11 +6,20 @@ import {
 
 export default function ContactUs() {
   return (
-    <div className="relative isolate bg-white">
+    <div
+      className="relative isolate"
+      style={{ backgroundColor: "var(--white)" }}
+    >
       <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
         <div className="relative px-6 pt-8 sm:pt-16 lg:static lg:px-8 ">
           <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
-            <div className="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-gray-100 ring-1 ring-gray-900/10 lg:w-1/2">
+            <div
+              className="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden"
+              style={{
+                backgroundColor: "var(--lightGray)",
+                borderRight: "1px solid var(--gray)",
+              }}
+            >
               <svg
                 className="absolute inset-0 size-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
                 aria-hidden="true"
@@ -56,21 +65,28 @@ export default function ContactUs() {
                 />
               </div> */}
             </div>
-            <p className="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+            <p
+              className="text-pretty text-4xl font-semibold tracking-tight sm:text-5xl"
+              style={{ color: "var(--text)" }}
+            >
               Get in touch
             </p>
-            <p className="mt-6 text-lg/8 text-gray-600">
+            <p className="mt-6 text-lg/8" style={{ color: "var(--gray)" }}>
               Proin volutpat consequat porttitor cras nullam gravida at. Orci
               molestie a eu arcu. Sed ut tincidunt integer elementum id sem.
               Arcu sed malesuada et magna.
             </p>
-            <dl className="mt-10 space-y-4 text-base/7 text-gray-600">
+            <dl
+              className="mt-10 space-y-4 text-base/7"
+              style={{ color: "var(--gray)" }}
+            >
               <div className="flex gap-x-4">
                 <dt className="flex-none">
                   <span className="sr-only">Address</span>
                   <BuildingOffice2Icon
                     aria-hidden="true"
-                    className="h-7 w-6 text-gray-400"
+                    className="h-7 w-6"
+                    style={{ color: "var(--gray)" }}
                   />
                 </dt>
                 <dd>
@@ -84,13 +100,20 @@ export default function ContactUs() {
                   <span className="sr-only">Telephone</span>
                   <PhoneIcon
                     aria-hidden="true"
-                    className="h-7 w-6 text-gray-400"
+                    className="h-7 w-6"
+                    style={{ color: "var(--gray)" }}
                   />
                 </dt>
                 <dd>
                   <a
                     href="tel:+1 (555) 234-5678"
-                    className="hover:text-gray-900"
+                    style={{ color: "var(--gray)" }}
+                    onMouseOver={(e) =>
+                      (e.currentTarget.style.color = "var(--text)")
+                    }
+                    onMouseOut={(e) =>
+                      (e.currentTarget.style.color = "var(--gray)")
+                    }
                   >
                     +1 (555) 234-5678
                   </a>
@@ -101,13 +124,20 @@ export default function ContactUs() {
                   <span className="sr-only">Email</span>
                   <EnvelopeIcon
                     aria-hidden="true"
-                    className="h-7 w-6 text-gray-400"
+                    className="h-7 w-6"
+                    style={{ color: "var(--gray)" }}
                   />
                 </dt>
                 <dd>
                   <a
                     href="mailto:hello@example.com"
-                    className="hover:text-gray-900"
+                    style={{ color: "var(--gray)" }}
+                    onMouseOver={(e) =>
+                      (e.currentTarget.style.color = "var(--text)")
+                    }
+                    onMouseOut={(e) =>
+                      (e.currentTarget.style.color = "var(--gray)")
+                    }
                   >
                     hello@example.com
                   </a>
@@ -126,7 +156,8 @@ export default function ContactUs() {
               <div>
                 <label
                   htmlFor="first-name"
-                  className="block text-sm/6 font-semibold text-gray-900"
+                  className="block text-sm/6 font-semibold"
+                  style={{ color: "var(--text)" }}
                 >
                   First name
                 </label>
@@ -136,14 +167,20 @@ export default function ContactUs() {
                     name="first-name"
                     type="text"
                     autoComplete="given-name"
-                    className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    className="block w-full rounded-md px-3.5 py-2 text-base outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2"
+                    style={{
+                      backgroundColor: "var(--white)",
+                      color: "var(--text)",
+                      outlineColor: "var(--gray)",
+                    }}
                   />
                 </div>
               </div>
               <div>
                 <label
                   htmlFor="last-name"
-                  className="block text-sm/6 font-semibold text-gray-900"
+                  className="block text-sm/6 font-semibold"
+                  style={{ color: "var(--text)" }}
                 >
                   Last name
                 </label>
@@ -153,14 +190,20 @@ export default function ContactUs() {
                     name="last-name"
                     type="text"
                     autoComplete="family-name"
-                    className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    className="block w-full rounded-md px-3.5 py-2 text-base outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2"
+                    style={{
+                      backgroundColor: "var(--white)",
+                      color: "var(--text)",
+                      outlineColor: "var(--gray)",
+                    }}
                   />
                 </div>
               </div>
               <div className="sm:col-span-2">
                 <label
                   htmlFor="email"
-                  className="block text-sm/6 font-semibold text-gray-900"
+                  className="block text-sm/6 font-semibold"
+                  style={{ color: "var(--text)" }}
                 >
                   Email
                 </label>
@@ -170,14 +213,20 @@ export default function ContactUs() {
                     name="email"
                     type="email"
                     autoComplete="email"
-                    className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    className="block w-full rounded-md px-3.5 py-2 text-base outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2"
+                    style={{
+                      backgroundColor: "var(--white)",
+                      color: "var(--text)",
+                      outlineColor: "var(--gray)",
+                    }}
                   />
                 </div>
               </div>
               <div className="sm:col-span-2">
                 <label
                   htmlFor="phone-number"
-                  className="block text-sm/6 font-semibold text-gray-900"
+                  className="block text-sm/6 font-semibold"
+                  style={{ color: "var(--text)" }}
                 >
                   Phone number
                 </label>
@@ -187,14 +236,20 @@ export default function ContactUs() {
                     name="phone-number"
                     type="tel"
                     autoComplete="tel"
-                    className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    className="block w-full rounded-md px-3.5 py-2 text-base outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2"
+                    style={{
+                      backgroundColor: "var(--white)",
+                      color: "var(--text)",
+                      outlineColor: "var(--gray)",
+                    }}
                   />
                 </div>
               </div>
               <div className="sm:col-span-2">
                 <label
                   htmlFor="message"
-                  className="block text-sm/6 font-semibold text-gray-900"
+                  className="block text-sm/6 font-semibold"
+                  style={{ color: "var(--text)" }}
                 >
                   Message
                 </label>
@@ -203,7 +258,12 @@ export default function ContactUs() {
                     id="message"
                     name="message"
                     rows={4}
-                    className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                    className="block w-full rounded-md px-3.5 py-2 text-base outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2"
+                    style={{
+                      backgroundColor: "var(--white)",
+                      color: "var(--text)",
+                      outlineColor: "var(--gray)",
+                    }}
                     defaultValue={""}
                   />
                 </div>
@@ -212,7 +272,17 @@ export default function ContactUs() {
             <div className="mt-8 flex justify-end">
               <button
                 type="submit"
-                className="rounded-md bg-blue-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                className="rounded-md px-3.5 py-2.5 text-center text-sm font-semibold shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 transition-colors"
+                style={{
+                  backgroundColor: "var(--blue)",
+                  color: "var(--white)",
+                }}
+                onMouseOver={(e) =>
+                  (e.currentTarget.style.backgroundColor = "var(--active)")
+                }
+                onMouseOut={(e) =>
+                  (e.currentTarget.style.backgroundColor = "var(--blue)")
+                }
               >
                 Send message
               </button>

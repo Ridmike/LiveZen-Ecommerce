@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from "@headlessui/react";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import OrderSummary from "../components/OrderSummary";
 import { useCart } from "../hooks/addToCart";
-
 
 export default function PaymentMethod() {
   const { getCartTotalWithTax } = useCart();
@@ -11,21 +14,25 @@ export default function PaymentMethod() {
   return (
     <>
       <main className="lg:flex lg:min-h-full lg:flex-row-reverse lg:pt-6 lg:overflow-hidden ">
-
         {/* Mobile order summary */}
         <section
           aria-labelledby="order-heading"
-          className="bg-gray-50 px-4 py-6 sm:px-6 lg:hidden"
+          className=" px-4 py-6 sm:px-6 lg:hidden"
+          style={{ backgroundColor: "var(--lightGray)" }}
         >
           <Disclosure as="div" className="mx-auto max-w-lg ">
             <div className="flex items-center justify-between">
-              <h2
+              <p
                 id="order-heading"
-                className="text-lg font-medium text-gray-900"
+                className="text-lg font-medium"
+                style={{ color: "var(--text)" }}
               >
                 Your Order
-              </h2>
-              <DisclosureButton className="group font-medium text-blue-600 hover:text-blue-500">
+              </p>
+              <DisclosureButton
+                className="group font-medium"
+                style={{ color: "var(--blue)" }}
+              >
                 <span className="group-[:not([data-open])]:hidden">
                   Hide full summary
                 </span>
@@ -39,7 +46,13 @@ export default function PaymentMethod() {
               <OrderSummary />
             </DisclosurePanel>
 
-            <p className="mt-6 flex items-center justify-between border-t border-gray-200 pt-6 text-sm font-medium text-gray-900">
+            <p
+              className="mt-6 flex items-center justify-between border-t pt-6 text-sm font-medium "
+              style={{
+                borderColor: "var(--darkGray)",
+                color: "var(--darkGray)",
+              }}
+            >
               <span className="text-base">Total</span>
               <span className="text-base">{getCartTotalWithTax()}</span>
             </p>
@@ -47,7 +60,7 @@ export default function PaymentMethod() {
         </section>
 
         {/* Order summary */}
-        <section className="hidden w-full max-w-md flex-col pt-2 bg-gray-50 lg:flex">
+        <section className="hidden w-full max-w-md flex-col pt-2 lg:flex">
           <OrderSummary />
         </section>
 
@@ -61,11 +74,26 @@ export default function PaymentMethod() {
               <div className="flex gap-4">
                 <button
                   type="button"
-                  className={`flex-1 flex items-center justify-center rounded-md border border-transparent ${
-                    hideCardFields
-                      ? "bg-black text-white"
-                      : "bg-gray-200 text-black"
-                  } py-2 font-bold hover:bg-gray-800/30 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2`}
+                  className="flex-1 flex items-center justify-center rounded-md border py-2 font-bold transition-colors"
+                  style={{
+                    backgroundColor: hideCardFields
+                      ? "var(--black)"
+                      : "var(--lightGray)",
+                    color: hideCardFields ? "var(--white)" : "var(--text)",
+                    borderColor: "var(--gray)",
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.backgroundColor = "var(--active)";
+                    e.currentTarget.style.color = "var(--white)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.backgroundColor = hideCardFields
+                      ? "var(--black)"
+                      : "var(--lightGray)";
+                    e.currentTarget.style.color = hideCardFields
+                      ? "var(--white)"
+                      : "var(--text)";
+                  }}
                   onClick={() => setHideCardFields(true)}
                 >
                   COD
@@ -77,11 +105,26 @@ export default function PaymentMethod() {
               <div className="flex gap-4">
                 <button
                   type="button"
-                  className={`flex-1 flex items-center justify-center rounded-md border border-transparent ${
-                    hideCardFields
-                      ? "bg-black text-white"
-                      : "bg-gray-200 text-black"
-                  } py-2 font-bold hover:bg-gray-800/30 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2`}
+                  className="flex-1 flex items-center justify-center rounded-md border py-2 font-bold transition-colors"
+                  style={{
+                    backgroundColor: hideCardFields
+                      ? "var(--black)"
+                      : "var(--lightGray)",
+                    color: hideCardFields ? "var(--white)" : "var(--text)",
+                    borderColor: "var(--gray)",
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.backgroundColor = "var(--active)";
+                    e.currentTarget.style.color = "var(--white)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.backgroundColor = hideCardFields
+                      ? "var(--black)"
+                      : "var(--lightGray)";
+                    e.currentTarget.style.color = hideCardFields
+                      ? "var(--white)"
+                      : "var(--text)";
+                  }}
                   onClick={() => setHideCardFields(false)}
                 >
                   Master Card / Visa
@@ -94,10 +137,16 @@ export default function PaymentMethod() {
                 aria-hidden="true"
                 className="absolute inset-0 flex items-center"
               >
-                <div className="w-full border-t border-gray-200" />
+                <div
+                  className="w-full border-t"
+                  style={{ borderColor: "var(--Gray)" }}
+                />
               </div>
               <div className="relative flex justify-center">
-                <span className="bg-white px-4 text-sm font-medium text-gray-500">
+                <span
+                  className=" px-2 text-sm font-medium rounded-full"
+                  style={{ backgroundColor: "var(--lightGray)" }}
+                >
                   or
                 </span>
               </div>
@@ -105,14 +154,20 @@ export default function PaymentMethod() {
 
             {!hideCardFields && (
               <div className="mt-8">
-                <p className="text-xl font-medium text-blue-600 text-center">
+                <p
+                  className="text-xl font-medium text-center"
+                  style={{ color: "var(--blue)" }}
+                >
                   Payment Via Card
                 </p>
               </div>
             )}
             {hideCardFields && (
               <div className="mt-8">
-                <p className="text-xl font-medium text-blue-600 text-center">
+                <p
+                  className="text-xl font-medium text-center"
+                  style={{ color: "var(--blue)" }}
+                >
                   Payment Via Cash On Delivery
                 </p>
               </div>
@@ -123,7 +178,8 @@ export default function PaymentMethod() {
                 <div className="col-span-full">
                   <label
                     htmlFor="email-address"
-                    className="block text-sm/6 font-medium text-gray-700"
+                    className="block text-sm/6 font-medium "
+                    style={{ color: "var(--gray)" }}
                   >
                     Email address
                   </label>
@@ -133,7 +189,17 @@ export default function PaymentMethod() {
                       name="email-address"
                       type="email"
                       autoComplete="email"
-                      className="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      className="block w-full rounded-md px-3 py-2 text-base outline-1 focus:-outline-offset-2 sm:text-sm/6"
+                      style={{
+                        backgroundColor: "var(--white)",
+                        color: "var(--text)",
+                      }}
+                      onFocus={(e) =>
+                        (e.currentTarget.style.outlineColor = "var(--blue)")
+                      }
+                      onBlur={(e) =>
+                        (e.currentTarget.style.outlineColor = "var(--gray)")
+                      }
                     />
                   </div>
                 </div>
@@ -144,7 +210,8 @@ export default function PaymentMethod() {
                     <div className="col-span-full">
                       <label
                         htmlFor="name-on-card"
-                        className="block text-sm/6 font-medium text-gray-700"
+                        className="block text-sm/6 font-medium"
+                        style={{ color: "var(--gray)" }}
                       >
                         Name on card
                       </label>
@@ -154,14 +221,25 @@ export default function PaymentMethod() {
                           name="name-on-card"
                           type="text"
                           autoComplete="cc-name"
-                          className="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                          className="block w-full rounded-md px-3 py-2 text-base outline-1 focus:-outline-offset-2 sm:text-sm/6"
+                          style={{
+                            backgroundColor: "var(--white)",
+                            color: "var(--text)",
+                          }}
+                          onFocus={(e) =>
+                            (e.currentTarget.style.outlineColor = "var(--blue)")
+                          }
+                          onBlur={(e) =>
+                            (e.currentTarget.style.outlineColor = "var(--gray)")
+                          }
                         />
                       </div>
                     </div>
                     <div className="col-span-full">
                       <label
                         htmlFor="card-number"
-                        className="block text-sm/6 font-medium text-gray-700"
+                        className="block text-sm/6 font-medium"
+                        style={{ color: "var(--gray)" }}
                       >
                         Card number
                       </label>
@@ -171,14 +249,25 @@ export default function PaymentMethod() {
                           name="card-number"
                           type="tel"
                           autoComplete="cc-number"
-                          className="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                          className="block w-full rounded-md px-3 py-2 text-base outline-1 -outline-offset-1 focus:outline focus:-outline-offset-2 sm:text-sm/6"
+                          style={{
+                            backgroundColor: "var(--white)",
+                            color: "var(--text)",
+                          }}
+                          onFocus={(e) =>
+                            (e.currentTarget.style.outlineColor = "var(--blue)")
+                          }
+                          onBlur={(e) =>
+                            (e.currentTarget.style.outlineColor = "var(--gray)")
+                          }
                         />
                       </div>
                     </div>
                     <div className="col-span-8 sm:col-span-9">
                       <label
                         htmlFor="expiration-date"
-                        className="block text-sm/6 font-medium text-gray-700"
+                        className="block text-sm/6 font-medium"
+                        style={{ color: "var(--gray)" }}
                       >
                         Expiration date (MM/YY)
                       </label>
@@ -188,14 +277,25 @@ export default function PaymentMethod() {
                           name="expiration-date"
                           type="tel"
                           autoComplete="cc-exp"
-                          className="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                          className="block w-full rounded-md px-3 py-2 text-base  outline-1  focus:-outline-offset-2 sm:text-sm/6"
+                          style={{
+                            backgroundColor: "var(--white)",
+                            color: "var(--text)",
+                          }}
+                          onFocus={(e) =>
+                            (e.currentTarget.style.outlineColor = "var(--blue)")
+                          }
+                          onBlur={(e) =>
+                            (e.currentTarget.style.outlineColor = "var(--gray)")
+                          }
                         />
                       </div>
                     </div>
                     <div className="col-span-4 sm:col-span-3">
                       <label
                         htmlFor="cvc"
-                        className="block text-sm/6 font-medium text-gray-700"
+                        className="block text-sm/6 font-medium"
+                        style={{ color: "var(--gray)" }}
                       >
                         CVC
                       </label>
@@ -205,7 +305,17 @@ export default function PaymentMethod() {
                           name="cvc"
                           type="tel"
                           autoComplete="csc"
-                          className="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                          className="block w-full rounded-md px-3 py-2 text-base outline-1 -outline-offset-1 focus:outline focus:-outline-offset-2 sm:text-sm/6"
+                          style={{
+                            backgroundColor: "var(--white)",
+                            color: "var(--text)",
+                          }}
+                          onFocus={(e) =>
+                            (e.currentTarget.style.outlineColor = "var(--blue)")
+                          }
+                          onBlur={(e) =>
+                            (e.currentTarget.style.outlineColor = "var(--gray)")
+                          }
                         />
                       </div>
                     </div>
@@ -215,7 +325,8 @@ export default function PaymentMethod() {
                 <div className="col-span-full">
                   <label
                     htmlFor="address"
-                    className="block text-sm/6 font-medium text-gray-700"
+                    className="block text-sm/6 font-medium "
+                    style={{ color: "var(--gray)" }}
                   >
                     Address
                   </label>
@@ -225,7 +336,17 @@ export default function PaymentMethod() {
                       name="address"
                       type="text"
                       autoComplete="street-address"
-                      className="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outlinefocus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      className="block w-full rounded-md px-3 py-2 text-base outline-1 -outline-offset-1 focus:outline focus:-outline-offset-2 sm:text-sm/6"
+                      style={{
+                        backgroundColor: "var(--white)",
+                        color: "var(--text)",
+                      }}
+                      onFocus={(e) =>
+                        (e.currentTarget.style.outlineColor = "var(--blue)")
+                      }
+                      onBlur={(e) =>
+                        (e.currentTarget.style.outlineColor = "var(--gray)")
+                      }
                     />
                   </div>
                 </div>
@@ -233,7 +354,8 @@ export default function PaymentMethod() {
                 <div className="col-span-full sm:col-span-4">
                   <label
                     htmlFor="city"
-                    className="block text-sm/6 font-medium text-gray-700"
+                    className="block text-sm/6 font-medium "
+                    style={{ color: "var(--gray)" }}
                   >
                     City
                   </label>
@@ -243,7 +365,17 @@ export default function PaymentMethod() {
                       name="city"
                       type="text"
                       autoComplete="address-level2"
-                      className="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      className="block w-full rounded-md px-3 py-2 text-base outline-1 -outline-offset-1 focus:outline focus:-outline-offset-2 sm:text-sm/6"
+                      style={{
+                        backgroundColor: "var(--white)",
+                        color: "var(--text)",
+                      }}
+                      onFocus={(e) =>
+                        (e.currentTarget.style.outlineColor = "var(--blue)")
+                      }
+                      onBlur={(e) =>
+                        (e.currentTarget.style.outlineColor = "var(--gray)")
+                      }
                     />
                   </div>
                 </div>
@@ -251,7 +383,8 @@ export default function PaymentMethod() {
                 <div className="col-span-full sm:col-span-4">
                   <label
                     htmlFor="region"
-                    className="block text-sm/6 font-medium text-gray-700"
+                    className="block text-sm/6 font-medium"
+                    style={{ color: "var(--gray)" }}
                   >
                     State / Province
                   </label>
@@ -261,7 +394,17 @@ export default function PaymentMethod() {
                       name="region"
                       type="text"
                       autoComplete="address-level1"
-                      className="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      className="block w-full rounded-md px-3 py-2 text-base outline-1 -outline-offset-1 focus:outline focus:-outline-offset-2 sm:text-sm/6"
+                      style={{
+                        backgroundColor: "var(--white)",
+                        color: "var(--text)",
+                      }}
+                      onFocus={(e) =>
+                        (e.currentTarget.style.outlineColor = "var(--blue)")
+                      }
+                      onBlur={(e) =>
+                        (e.currentTarget.style.outlineColor = "var(--gray)")
+                      }
                     />
                   </div>
                 </div>
@@ -269,7 +412,8 @@ export default function PaymentMethod() {
                 <div className="col-span-full sm:col-span-4">
                   <label
                     htmlFor="postal-code"
-                    className="block text-sm/6 font-medium text-gray-700"
+                    className="block text-sm/6 font-medium"
+                    style={{ color: "var(--gray)" }}
                   >
                     Postal code
                   </label>
@@ -279,7 +423,17 @@ export default function PaymentMethod() {
                       name="postal-code"
                       type="text"
                       autoComplete="postal-code"
-                      className="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900  outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      className="block w-full rounded-md px-3 py-2 text-base outline-1 -outline-offset-1 focus:outline focus:-outline-offset-2 sm:text-sm/6"
+                      style={{
+                        backgroundColor: "var(--white)",
+                        color: "var(--text)",
+                      }}
+                      onFocus={(e) =>
+                        (e.currentTarget.style.outlineColor = "var(--blue)")
+                      }
+                      onBlur={(e) =>
+                        (e.currentTarget.style.outlineColor = "var(--gray)")
+                      }
                     />
                   </div>
                 </div>
@@ -293,7 +447,30 @@ export default function PaymentMethod() {
                       id="same-as-shipping"
                       name="same-as-shipping"
                       type="checkbox"
-                      className="col-start-1 row-start-1 appearance-none rounded border border-gray-300 bg-white checked:border-blue-600 checked:bg-blue-600 indeterminate:border-blue-600 indeterminate:bg-blue-600 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
+                      className="col-start-1 row-start-1 appearance-none rounded forced-colors:appearance-auto"
+                      style={{
+                        border: "1px solid var(--gray)",
+                        backgroundColor: "var(--white)",
+                      }}
+                      onFocus={(e) =>
+                        (e.currentTarget.style.outlineColor = "var(--blue)")
+                      }
+                      onBlur={(e) =>
+                        (e.currentTarget.style.outlineColor = "var(--gray)")
+                      }
+                      onChange={(e) => {
+                        if (e.currentTarget.checked) {
+                          e.currentTarget.style.borderColor = "var(--blue)";
+                          e.currentTarget.style.backgroundColor = "var(--blue)";
+                          e.currentTarget.style.color = "var(--white)";
+                        } else {
+                          e.currentTarget.style.borderColor = "var(--gray)";
+                          e.currentTarget.style.backgroundColor =
+                            "var(--white)";
+                          e.currentTarget.style.color = "var(--text)";
+                        }
+                      }}
+                      disabled={false} // Remove or set true as needed
                     />
                     <svg
                       fill="none"
@@ -319,7 +496,8 @@ export default function PaymentMethod() {
                 </div>
                 <label
                   htmlFor="same-as-shipping"
-                  className="text-sm font-medium text-gray-900"
+                  className="text-sm font-medium "
+                  style={{ color: "var(--darkgray)" }}
                 >
                   Billing address is the same as shipping address
                 </label>
@@ -327,15 +505,24 @@ export default function PaymentMethod() {
 
               <button
                 type="submit"
-                className="mt-6 w-full rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="mt-6 w-full rounded-md border border-transparent px-4 py-2 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2"
+                style={{ backgroundColor: "var(--blue)" }}
+                onMouseOver={(e) =>
+                  (e.currentTarget.style.backgroundColor = "var(--active)")
+                }
+                onMouseOut={(e) =>
+                  (e.currentTarget.style.backgroundColor = "var(--blue)")
+                }
               >
                 Pay {getCartTotalWithTax()}
               </button>
 
-              <p className="mt-6 flex justify-center text-sm font-medium text-gray-500">
+              <p className="mt-6 flex justify-center text-sm font-medium "
+                style={{ color: "var(--darkgray)" }}>
                 <LockClosedIcon
                   aria-hidden="true"
-                  className="mr-1.5 size-5 text-gray-400"
+                  className="mr-1.5 size-5 "
+                  style={{ color: "var(--gray)" }}
                 />
                 Payment details stored in plain text
               </p>

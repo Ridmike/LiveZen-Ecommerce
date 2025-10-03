@@ -1,4 +1,3 @@
-import React from "react";
 import Home from "./screens/Home";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AllProducts from "./screens/AllProducts";
@@ -20,7 +19,7 @@ export default function App() {
         <Router>
           <Header />
           <PopUpNotification />
-          <div className="min-h-screen bg-gray-50">
+          <div className="min-h-screen">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/all-products" element={<AllProducts />} />

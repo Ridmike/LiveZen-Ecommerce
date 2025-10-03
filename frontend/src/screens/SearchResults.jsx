@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Card from "../components/Card";
 import useSearch from "../hooks/useSearch";
 
@@ -25,11 +23,14 @@ export default function SearchResults() {
     } else if (category) {
       searchByCategory(category);
     }
-  }, [query, category]); // Removed function dependencies to prevent infinite loops
+  }, [query, category]); 
 
   const LoadingSpinner = () => (
     <div className="flex justify-center items-center py-20">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      <div
+        className="animate-spin rounded-full h-12 w-12 border-b-2"
+        style={{ borderColor: "var(--text)" }}
+      ></div>
     </div>
   );
 
@@ -37,10 +38,11 @@ export default function SearchResults() {
     <div className="text-center py-20">
       <div className="max-w-md mx-auto">
         <svg
-          className="w-20 h-20 text-gray-400 mx-auto mb-4"
+          className="w-20 h-20 mx-auto mb-4"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
+          style={{ color: "var(--gray)" }}
         >
           <path
             strokeLinecap="round"
@@ -49,24 +51,36 @@ export default function SearchResults() {
             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+        <h2
+          className="text-2xl font-bold mb-2"
+          style={{ color: "var(--text)" }}
+        >
           No results found
         </h2>
-        <p className="text-gray-600 mb-6">
+        <p className="mb-6" style={{ color: "var(--gray)" }}>
           {query
             ? `No products found for "${query}"`
             : "No products found in this category"}
         </p>
         <div className="space-y-3">
-          <p className="text-sm text-gray-500">Try:</p>
-          <ul className="text-sm text-gray-600 space-y-1">
+          <p className="text-sm" style={{ color: "var(--gray)" }}>
+            Try:
+          </p>
+          <ul className="text-sm space-y-1" style={{ color: "var(--gray)" }}>
             <li>• Using different keywords</li>
             <li>• Searching for more general terms</li>
           </ul>
         </div>
         <Link
           to="/all-products"
-          className="inline-block mt-6 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          className="inline-block mt-6 px-6 py-2 rounded-lg transition-colors"
+          style={{ backgroundColor: "var(--blue)", color: "var(--white)" }}
+          onMouseOver={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--active)")
+          }
+          onMouseOut={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--blue)")
+          }
         >
           Browse All Products
         </Link>
@@ -76,17 +90,19 @@ export default function SearchResults() {
 
   return (
     <div>
-
       <div className="container mx-auto px-4 py-8">
         {/* Search Results Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">
+              <h1
+                className="text-2xl font-bold mb-2"
+                style={{ color: "var(--text)" }}
+              >
                 {query ? `Search Results for "${query}"` : "Category Results"}
               </h1>
               {!isSearching && (
-                <p className="text-gray-600">
+                <p style={{ color: "var(--gray)" }}>
                   {searchResults.length} product
                   {searchResults.length !== 1 ? "s" : ""} found
                 </p>
@@ -94,7 +110,12 @@ export default function SearchResults() {
             </div>
             <Link
               to="/all-products"
-              className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
+              className="font-medium transition-colors"
+              style={{ color: "var(--blue)" }}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.color = "var(--active)")
+              }
+              onMouseOut={(e) => (e.currentTarget.style.color = "var(--blue)")}
             >
               View All Products →
             </Link>
@@ -102,12 +123,17 @@ export default function SearchResults() {
         </div>
 
         {/* Breadcrumb */}
-        <nav className="text-sm text-gray-600 mb-6">
-          <Link to="/" className="hover:text-gray-900">
+        <nav className="text-sm mb-6" style={{ color: "var(--gray)" }}>
+          <Link
+            to="/"
+            style={{ color: "var(--gray)" }}
+            onMouseOver={(e) => (e.currentTarget.style.color = "var(--text)")}
+            onMouseOut={(e) => (e.currentTarget.style.color = "var(--gray)")}
+          >
             Home
           </Link>
           <span className="mx-2">/</span>
-          <span className="text-gray-900">Search Results : {query}</span>
+          <span style={{ color: "var(--text)" }}>Search Results : {query}</span>
         </nav>
 
         {/* Search Results */}
@@ -125,35 +151,57 @@ export default function SearchResults() {
 
         {/* Search Suggestions */}
         {searchResults.length === 0 && !isSearching && (
-          <div className="mt-12 bg-gray-50 rounded-lg p-8">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          <div
+            className="mt-12 rounded-lg p-8"
+            style={{ backgroundColor: "var(--lightGray)" }}
+          >
+            <h3
+              className="text-lg font-semibold mb-4"
+              style={{ color: "var(--text)" }}
+            >
               Popular Categories
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <Link
                 to="/search?category=electronics"
-                className="bg-white p-4 rounded-lg hover:shadow-md transition-shadow text-center"
+                className="p-4 rounded-lg hover:shadow-md transition-shadow text-center"
+                style={{
+                  backgroundColor: "var(--white)",
+                  color: "var(--text)",
+                }}
               >
                 <div className="text-2xl mb-2">📱</div>
                 <span className="text-sm font-medium">Electronics</span>
               </Link>
               <Link
                 to="/search?category=fashion"
-                className="bg-white p-4 rounded-lg hover:shadow-md transition-shadow text-center"
+                className="p-4 rounded-lg hover:shadow-md transition-shadow text-center"
+                style={{
+                  backgroundColor: "var(--white)",
+                  color: "var(--text)",
+                }}
               >
                 <div className="text-2xl mb-2">👕</div>
                 <span className="text-sm font-medium">Fashion</span>
               </Link>
               <Link
                 to="/search?category=home"
-                className="bg-white p-4 rounded-lg hover:shadow-md transition-shadow text-center"
+                className="p-4 rounded-lg hover:shadow-md transition-shadow text-center"
+                style={{
+                  backgroundColor: "var(--white)",
+                  color: "var(--text)",
+                }}
               >
                 <div className="text-2xl mb-2">🏠</div>
                 <span className="text-sm font-medium">Home & Garden</span>
               </Link>
               <Link
                 to="/search?category=sports"
-                className="bg-white p-4 rounded-lg hover:shadow-md transition-shadow text-center"
+                className="p-4 rounded-lg hover:shadow-md transition-shadow text-center"
+                style={{
+                  backgroundColor: "var(--white)",
+                  color: "var(--text)",
+                }}
               >
                 <div className="text-2xl mb-2">⚽</div>
                 <span className="text-sm font-medium">Sports</span>
